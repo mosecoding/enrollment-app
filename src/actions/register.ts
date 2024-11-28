@@ -27,17 +27,6 @@ export async function register(values: z.infer<typeof registerSchema>) {
       };
     }
 
-    // Verificar si el correo está asignado a otro usuario
-    const existingEmail = await prisma.student.findUnique({
-      where: { email: data.email },
-    });
-
-    if (existingEmail) {
-      return {
-        error: "El correo ya se encuentra registrado.",
-      };
-    }
-
     // Generar un username único basado en números
     let username: string;
     do {
@@ -70,14 +59,12 @@ export async function register(values: z.infer<typeof registerSchema>) {
             phoneNumber: data.guardian.phone,
           },
         },
-        email: data.email,
         password: hashedPassword,
       },
     });
 
     // Enviar el username y password al correo registrado
     const { success: emailSent } = await sendCredentialsToEmail(
-      data.email,
       username,
       password
     );
@@ -85,7 +72,7 @@ export async function register(values: z.infer<typeof registerSchema>) {
     if (!emailSent) {
       return { error: "Usuario creado, pero no se pudo enviar el correo." };
     }
-    
+
     return { success: true };
   } catch (error) {
     return { error: "Ocurrió un error inesperado." };

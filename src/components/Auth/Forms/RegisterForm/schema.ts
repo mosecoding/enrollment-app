@@ -92,9 +92,4 @@ export const registerSchema = z.object({
         message: "¡Parece que la fecha de nacimiento no es válida!",
       }
     ),
-  email: z
-    .string()
-    .trim()
-    .min(1, "¡Por favor, ingresa tu correo electrónico!")
-    .email("El correo electrónico ingresado no es válido."),
 });

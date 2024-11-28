@@ -17,7 +17,6 @@ model Student {
   age         Int
   gender      Gender
   birthDate   DateTime
-  email       String       @unique
   username    String       @unique
   password    String
   guardian    Guardian     @relation(fields: [guardianId], references: [id])

@@ -48,7 +48,6 @@ export default function RegisterForm() {
       age: "",
       gender: undefined,
       guardian: { firstName: "", lastName: "", phone: "" },
-      email: "",
     },
   });
 
@@ -110,23 +109,6 @@ export default function RegisterForm() {
                       </FormControl>
                       <FormDescription>
                         El DNI debe ser único y no estar registrado previamente.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Correo</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        El correo debe ser único y no estar registrado
-                        previamente.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -223,7 +205,7 @@ export default function RegisterForm() {
                 </span>
                 <div className="flex-grow h-px bg-input" />
               </div>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 pb-6 sm:grid-cols-2">
                 <FormField
                   control={form.control}
                   name="guardian.firstName"
