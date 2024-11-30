@@ -1,8 +1,11 @@
-import LoginForm from '@/components/Auth/Forms/LoginForm'
-import React from 'react'
+import { auth } from "@/auth";
+import LoginForm from "@/components/Auth/Forms/LoginForm";
+import { redirect } from "next/navigation";
+import React from "react";
 
-export default function LoginPage() {
-  return (
-    <LoginForm />
-  )
+export default async function LoginPage() {
+  const session = await auth();
+  if (session) redirect("/enrollment");
+
+  return <LoginForm />;
 }

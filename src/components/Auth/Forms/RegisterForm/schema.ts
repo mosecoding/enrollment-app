@@ -74,7 +74,7 @@ export const registerSchema = z.object({
       }
     ),
   gender: z
-    .union([z.enum(["MALE", "FEMALE"]), z.undefined()])
+    .union([z.enum(["MASCULINO", "FEMENINO"]), z.undefined()])
     .refine((value) => value !== undefined, {
       message: "Por favor, selecciona tu género.",
     }),

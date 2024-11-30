@@ -27,8 +27,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { genders } from "./constants";
 import { register } from "@/actions/register";
-import { Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { cn } from "@/utils/cn";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
@@ -61,12 +62,18 @@ export default function RegisterForm() {
         router.push("/login");
       }
     });
-    console.log(values);
   }
 
   return (
     <section className="max-w-3xl min-h-[calc(100vh-4rem)] mx-auto content-center">
-      <div className="px-5 py-16 space-y-8">
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+      <div className="px-5 py-16 space-y-6">
         <h1 className="text-3xl text-center font-bold">Crear cuenta</h1>
         <div>
           <Form {...form}>
@@ -168,13 +175,9 @@ export default function RegisterForm() {
                             <SelectValue placeholder="Selecciona un género" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent className="bg-transparent">
+                        <SelectContent>
                           {genders.map((gender) => (
-                            <SelectItem
-                              key={gender.value}
-                              value={gender.value}
-                              className="focus:bg-primary/10"
-                            >
+                            <SelectItem key={gender.value} value={gender.value}>
                               {gender.name}
                             </SelectItem>
                           ))}

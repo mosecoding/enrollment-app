@@ -1,7 +1,7 @@
 export const genders = [
   {
     name: "Femenino",
-    value: "FEMALE",
+    value: "FEMENINO",
   },
-  { name: "Masculino", value: "MALE" },
+  { name: "Masculino", value: "MASCULINO" },
 ];

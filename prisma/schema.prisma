@@ -21,10 +21,11 @@ model Student {
   password    String
   guardian    Guardian     @relation(fields: [guardianId], references: [id])
   guardianId  String
-  enrollments Enrollment[]
+  enrollment  Enrollment?  @relation("StudentEnrollment")
 
   @@map("student")
 }
+
 
 model Guardian {
   id          String    @id @default(uuid())
@@ -39,24 +40,25 @@ model Guardian {
 model Enrollment {
   id             String           @id @default(uuid())
   enrollmentDate DateTime         @default(now())
-  status         EnrollmentStatus @default(PENDING)
-  student        Student          @relation(fields: [studentId], references: [id])
-  studentId      String
+  status         EnrollmentStatus @default(PENDIENTE)
+  student        Student          @relation("StudentEnrollment", fields: [studentId], references: [id])
+  studentId      String           @unique
   section        Section          @relation(fields: [sectionId], references: [id])
   sectionId      Int
-  payments       Payment[]
+  payment        Payment?         @relation("EnrollmentPayment")
 
   @@map("enrollment")
 }
 
 model Payment {
-  id           String        @id @default(uuid())
-  amount       Float
-  paymentDate  DateTime      @default(now())
-  status       PaymentStatus @default(PENDING)
-  paymentCode  String        @unique
-  enrollment   Enrollment    @relation(fields: [enrollmentId], references: [id])
-  enrollmentId String
+  id             String        @id @default(uuid())
+  amount         Float
+  paymentDate    DateTime      @default(now())
+  expirationDate DateTime      @default(now())
+  status         PaymentStatus @default(PENDIENTE)
+  paymentCode    String        @unique
+  enrollment     Enrollment?   @relation("EnrollmentPayment", fields: [enrollmentId], references: [id])
+  enrollmentId   String?       @unique
 
   @@map("payment")
 }
@@ -91,20 +93,16 @@ model Section {
 }
 
 enum Gender {
-  MALE
-  FEMALE
+  MASCULINO
+  FEMENINO
 }
 
 enum PaymentStatus {
-  PENDING
-  COMPLETED
-  FAILED
-  CANCELLED
+  PENDIENTE
+  COMPLETADO
 }
 
 enum EnrollmentStatus {
-  PENDING
-  COMPLETED
-  CANCELLED
-  INVALID
+  PENDIENTE
+  COMPLETADO
 }

@@ -58,7 +58,7 @@ export default function LoginForm() {
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
-      <div className="px-5 py-16 space-y-9">
+      <div className="px-5 py-16 space-y-6">
         <h1 className="text-3xl text-center font-bold">Acceder</h1>
         <div>
           <Form {...form}>

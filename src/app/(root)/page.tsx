@@ -1,8 +1,13 @@
+import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const session = await auth();
+  if (session) redirect("/enrollment");
+
   return (
     <section className="min-h-[calc(100vh-4rem)] content-center">
       <div className="py-16 px-5 space-y-8 sm:space-y-9 lg:space-y-10">
