@@ -90,8 +90,6 @@ const SelectField = ({
 );
 
 export default function EnrollmentForm({ levels }: EnrollmentFormProps) {
-  if (!levels) return null;
-
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -108,6 +106,8 @@ export default function EnrollmentForm({ levels }: EnrollmentFormProps) {
   const { control, handleSubmit, setValue, trigger } = form;
   const level = useWatch({ control, name: "level" });
   const grade = useWatch({ control, name: "grade" });
+
+  if (!levels) return null;
 
   const selectedLevel = levels.find((l) => l.name === level?.name);
   const grades = selectedLevel ? selectedLevel.grades : [];
